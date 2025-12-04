@@ -111,14 +111,14 @@ export default function MissionSelector({
                 <h3
                   className={`font-display font-semibold text-lg ${
                     selectedMission === mission.id
-                      ? "text-white"
+                      ? "text-[var(--text-primary)]"
                       : "text-gray-200"
                   }`}
                 >
                   {mission.title}
                 </h3>
               </div>
-              <p className="text-gray-400 text-sm mt-1">{mission.description}</p>
+              <p className="text-[var(--text-secondary)] text-sm mt-1">{mission.description}</p>
             </div>
             {selectedMission === mission.id && (
               <motion.div

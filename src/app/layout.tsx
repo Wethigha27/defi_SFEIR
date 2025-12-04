@@ -16,9 +16,9 @@ const rajdhani = Rajdhani({
 });
 
 export const metadata: Metadata = {
-  title: "Le Nexus Connecté - L'Écho Personnalisé",
-  description: "Portail d'Intention pour la Nuit de l'Info - Rejoignez notre communauté et soutenez notre cause",
-  keywords: ["nexus", "association", "don", "bénévolat", "contact", "nuit de l'info"],
+  title: "Village Numérique Résistant - NIRD | Nuit de l'Info 2025",
+  description: "Portail d'Intention pour un Numérique Inclusif, Responsable et Durable. Aidons les établissements scolaires à résister aux Big Tech avec Linux et les logiciels libres.",
+  keywords: ["NIRD", "numérique responsable", "linux", "logiciels libres", "écoles", "nuit de l'info 2025", "village résistant"],
 };
 
 export default function RootLayout({

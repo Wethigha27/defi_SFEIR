@@ -210,6 +210,8 @@ export default function DynamicForm({
         exit="exit"
         onSubmit={handleSubmit}
         className="space-y-6"
+        role="form"
+        aria-label={`Formulaire de ${mission === 'contact' ? 'contact' : mission === 'don' ? 'don' : mission === 'benevole' ? 'bénévolat' : 'demande d\'informations'}`}
       >
         {/* Honeypot field - Anti-spam 🔒 */}
         <div className="absolute -left-[9999px] opacity-0 h-0 overflow-hidden" aria-hidden="true">
@@ -228,33 +230,43 @@ export default function DynamicForm({
         {/* Common Fields */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <motion.div variants={fieldVariants}>
-            <label className="label-cyber">
-              Nom d&apos;Utilisateur <span className="text-[var(--danger)]">*</span>
+            <label htmlFor="nom" className="label-cyber">
+              Nom d&apos;Utilisateur <span className="text-[var(--danger)]" aria-hidden="true">*</span>
+              <span className="sr-only">(requis)</span>
             </label>
             <input
               type="text"
+              id="nom"
               name="nom"
               value={formData.nom}
               onChange={handleChange}
               placeholder="Entrez votre nom de code..."
               className="input-cyber"
+              aria-required="true"
+              aria-invalid={!!errors.nom}
+              aria-describedby={errors.nom ? "nom-error" : undefined}
             />
-            {errors.nom && <p className="error-msg">{errors.nom}</p>}
+            {errors.nom && <p id="nom-error" className="error-msg" role="alert">{errors.nom}</p>}
           </motion.div>
 
           <motion.div variants={fieldVariants}>
-            <label className="label-cyber">
-              Canal Email <span className="text-[var(--danger)]">*</span>
+            <label htmlFor="email" className="label-cyber">
+              Canal Email <span className="text-[var(--danger)]" aria-hidden="true">*</span>
+              <span className="sr-only">(requis)</span>
             </label>
             <input
               type="email"
+              id="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
               placeholder="votre.email@nexus.com"
               className="input-cyber"
+              aria-required="true"
+              aria-invalid={!!errors.email}
+              aria-describedby={errors.email ? "email-error" : undefined}
             />
-            {errors.email && <p className="error-msg">{errors.email}</p>}
+            {errors.email && <p id="email-error" className="error-msg" role="alert">{errors.email}</p>}
           </motion.div>
         </div>
 
@@ -262,33 +274,41 @@ export default function DynamicForm({
         {mission === "contact" && (
           <>
             <motion.div variants={fieldVariants}>
-              <label className="label-cyber">
-                Sujet du Message <span className="text-[var(--danger)]">*</span>
+              <label htmlFor="sujet" className="label-cyber">
+                Sujet du Message <span className="text-[var(--danger)]" aria-hidden="true">*</span>
+                <span className="sr-only">(requis)</span>
               </label>
               <input
                 type="text"
+                id="sujet"
                 name="sujet"
                 value={formData.sujet || ""}
                 onChange={handleChange}
                 placeholder="De quoi souhaitez-vous discuter ?"
                 className="input-cyber"
+                aria-required="true"
+                aria-invalid={!!errors.sujet}
               />
-              {errors.sujet && <p className="error-msg">{errors.sujet}</p>}
+              {errors.sujet && <p className="error-msg" role="alert">{errors.sujet}</p>}
             </motion.div>
 
             <motion.div variants={fieldVariants}>
-              <label className="label-cyber">
-                Votre Message <span className="text-[var(--danger)]">*</span>
+              <label htmlFor="message" className="label-cyber">
+                Votre Message <span className="text-[var(--danger)]" aria-hidden="true">*</span>
+                <span className="sr-only">(requis)</span>
               </label>
               <textarea
+                id="message"
                 name="message"
                 value={formData.message || ""}
                 onChange={handleChange}
                 placeholder="Transmettez votre message au Nexus..."
                 className="textarea-cyber"
                 rows={5}
+                aria-required="true"
+                aria-invalid={!!errors.message}
               />
-              {errors.message && <p className="error-msg">{errors.message}</p>}
+              {errors.message && <p className="error-msg" role="alert">{errors.message}</p>}
             </motion.div>
           </>
         )}

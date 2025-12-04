@@ -8,7 +8,6 @@ import ParticleBackground from "@/components/ParticleBackground";
 import MissionSelector, { MissionType } from "@/components/MissionSelector";
 import DynamicForm, { FormData } from "@/components/DynamicForm";
 import { FiZap, FiShield, FiGlobe, FiHeart } from "react-icons/fi";
-import AxolotlChat from "@/components/AxolotlChat";
 import AIAssistant from "@/components/AIAssistant";
 
 export default function Home() {
@@ -67,99 +66,159 @@ export default function Home() {
 
       <main className="relative z-10">
         {/* Hero Section */}
-        <section className="pt-24 pb-16 px-4">
+        <section className="pt-28 pb-20 px-4 relative hero-glow">
+          {/* Decorative Orbs */}
+          <div className="orb orb-1" />
+          <div className="orb orb-2" />
+          
           <motion.div
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="max-w-4xl mx-auto text-center"
+            className="max-w-5xl mx-auto text-center relative z-10"
           >
-            <motion.div variants={itemVariants} className="mb-6">
-              <span className="inline-block px-4 py-2 rounded-full bg-[var(--primary)]/10 border border-[var(--primary)]/30 text-[var(--primary)] text-sm font-display mb-4">
-                🦎 Axolotl vous accueille
+            <motion.div variants={itemVariants} className="mb-8">
+              <span className="cyber-badge">
+                <span className="text-xl">🏘️</span>
+                <span>Village Numérique Résistant</span>
+                <span className="text-[var(--accent)]">•</span>
+                <span>Nuit de l&apos;Info 2025</span>
               </span>
             </motion.div>
 
             <motion.h1
               variants={itemVariants}
-              className="font-display text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
+              className="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight"
             >
-              <span className="text-white">Le </span>
-              <span className="text-glow text-[var(--primary)]">Nexus</span>
-              <span className="text-white"> Connecté</span>
+              <span className="text-[var(--text-primary)]">Le </span>
+              <span className="gradient-text">Village</span>
+              <br />
+              <span className="text-[var(--text-primary)]">Numérique </span>
+              <span className="text-glow text-[var(--primary)]">Résistant</span>
             </motion.h1>
 
-            <motion.p
+            <motion.div
               variants={itemVariants}
-              className="text-xl md:text-2xl text-gray-400 mb-4"
+              className="mb-6"
             >
-              L&apos;Écho Personnalisé ✨
-            </motion.p>
+              <div className="neon-line max-w-md mx-auto mb-6" />
+              <p className="text-2xl md:text-3xl font-display font-semibold">
+                <span className="text-[var(--primary)]">N</span>umérique{" "}
+                <span className="text-[var(--secondary)]">I</span>nclusif,{" "}
+                <span className="text-[var(--accent)]">R</span>esponsable et{" "}
+                <span className="text-[var(--gold)]">D</span>urable 🌱
+              </p>
+            </motion.div>
 
             <motion.p
               variants={itemVariants}
-              className="text-gray-500 max-w-2xl mx-auto mb-8"
+              className="text-lg text-[var(--text-secondary)] max-w-3xl mx-auto mb-10 leading-relaxed"
             >
-              Salutations, voyageur des flux de données ! 🚀 Notre monde
-              numérique a besoin de toi. Les Bugs Ancestraux 🐛 menacent de
-              corrompre les liens vitaux entre notre communauté et ses Soutiens
-              Essentiels ❤️.
+              Face aux Big Tech, les établissements scolaires peuvent résister ! 🏫 
+              Comme Astérix face à l&apos;Empire, rejoins notre Village pour un numérique 
+              plus libre, plus autonome et plus durable. Ensemble, libérons les écoles 
+              de l&apos;obsolescence programmée ! 💪
             </motion.p>
 
             <motion.div
               variants={itemVariants}
-              className="flex flex-wrap justify-center gap-6 text-sm text-gray-400"
+              className="flex flex-wrap justify-center gap-8 text-base"
             >
-              <div className="flex items-center gap-2">
-                <FiShield className="w-5 h-5 text-[var(--primary)]" />
-                <span>Sécurisé</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <FiGlobe className="w-5 h-5 text-[var(--secondary)]" />
-                <span>Universel</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <FiZap className="w-5 h-5 text-[var(--gold)]" />
-                <span>Instantané</span>
-              </div>
+              <motion.div 
+                whileHover={{ scale: 1.1, y: -5 }}
+                className="flex items-center gap-3 px-6 py-3 rounded-xl bg-[var(--primary)]/10 border border-[var(--primary)]/30"
+              >
+                <span className="text-2xl">🤝</span>
+                <span className="text-[var(--primary)] font-semibold">Inclusif</span>
+              </motion.div>
+              <motion.div 
+                whileHover={{ scale: 1.1, y: -5 }}
+                className="flex items-center gap-3 px-6 py-3 rounded-xl bg-[var(--secondary)]/10 border border-[var(--secondary)]/30"
+              >
+                <span className="text-2xl">♻️</span>
+                <span className="text-[var(--secondary)] font-semibold">Responsable</span>
+              </motion.div>
+              <motion.div 
+                whileHover={{ scale: 1.1, y: -5 }}
+                className="flex items-center gap-3 px-6 py-3 rounded-xl bg-[var(--gold)]/10 border border-[var(--gold)]/30"
+              >
+                <span className="text-2xl">🌱</span>
+                <span className="text-[var(--gold)] font-semibold">Durable</span>
+              </motion.div>
             </motion.div>
           </motion.div>
         </section>
 
         {/* Features Section */}
-        <section className="py-12 px-4" id="missions">
+        <section className="py-16 px-4" id="missions">
           <div className="max-w-6xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16 max-w-3xl mx-auto"
+              className="text-center mb-12"
             >
-              <div className="card-glass p-6 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-gradient-to-br from-[var(--secondary)] to-[var(--secondary)]/50 flex items-center justify-center">
-                  <FiHeart className="w-8 h-8 text-white" />
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-[var(--text-primary)] mb-4">
+                💪 Notre Résistance
+              </h2>
+              <p className="text-[var(--text-secondary)] max-w-2xl mx-auto">
+                Les piliers de notre combat pour un numérique plus éthique
+              </p>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 max-w-5xl mx-auto"
+            >
+              <motion.div 
+                whileHover={{ y: -10 }}
+                className="card-glass p-8 text-center group"
+              >
+                <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-[var(--primary)] to-[var(--primary)]/30 flex items-center justify-center shadow-lg shadow-[var(--primary)]/20 group-hover:shadow-[var(--primary)]/40 transition-shadow">
+                  <span className="text-4xl">🐧</span>
                 </div>
-                <h3 className="font-display text-lg font-semibold text-white mb-2">
-                  Soutiens Essentiels
+                <h3 className="font-display text-xl font-bold text-[var(--text-primary)] mb-3">
+                  Linux & Logiciels Libres
                 </h3>
-                <p className="text-gray-400 text-sm">
-                  Chaque contribution renforce notre communauté et ses projets
-                  innovants.
+                <p className="text-[var(--text-secondary)] leading-relaxed">
+                  Promouvons les solutions libres pour libérer les écoles des licences coûteuses.
                 </p>
-              </div>
+                <div className="mt-4 h-1 w-0 group-hover:w-full bg-gradient-to-r from-[var(--primary)] to-transparent transition-all duration-500 mx-auto" />
+              </motion.div>
 
-              <div className="card-glass p-6 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-gradient-to-br from-[var(--accent)] to-[var(--accent)]/50 flex items-center justify-center">
-                  <FiShield className="w-8 h-8 text-white" />
+              <motion.div 
+                whileHover={{ y: -10 }}
+                className="card-glass p-8 text-center group"
+              >
+                <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-[var(--secondary)] to-[var(--secondary)]/30 flex items-center justify-center shadow-lg shadow-[var(--secondary)]/20 group-hover:shadow-[var(--secondary)]/40 transition-shadow">
+                  <span className="text-4xl">♻️</span>
                 </div>
-                <h3 className="font-display text-lg font-semibold text-white mb-2">
-                  Guilde des Bénévoles
+                <h3 className="font-display text-xl font-bold text-[var(--text-primary)] mb-3">
+                  Reconditionnement
                 </h3>
-                <p className="text-gray-400 text-sm">
-                  Rejoignez une équipe de héros du code prêts à défendre le
-                  Nexus.
+                <p className="text-[var(--text-secondary)] leading-relaxed">
+                  Luttons contre l&apos;obsolescence programmée en donnant une seconde vie au matériel.
                 </p>
-              </div>
+                <div className="mt-4 h-1 w-0 group-hover:w-full bg-gradient-to-r from-[var(--secondary)] to-transparent transition-all duration-500 mx-auto" />
+              </motion.div>
+
+              <motion.div 
+                whileHover={{ y: -10 }}
+                className="card-glass p-8 text-center group"
+              >
+                <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-[var(--gold)] to-[var(--gold)]/30 flex items-center justify-center shadow-lg shadow-[var(--gold)]/20 group-hover:shadow-[var(--gold)]/40 transition-shadow">
+                  <span className="text-4xl">🏫</span>
+                </div>
+                <h3 className="font-display text-xl font-bold text-[var(--text-primary)] mb-3">
+                  Autonomie des Écoles
+                </h3>
+                <p className="text-[var(--text-secondary)] leading-relaxed">
+                  Accompagnons les établissements vers un numérique autonome et éthique.
+                </p>
+                <div className="mt-4 h-1 w-0 group-hover:w-full bg-gradient-to-r from-[var(--gold)] to-transparent transition-all duration-500 mx-auto" />
+              </motion.div>
             </motion.div>
           </div>
         </section>
@@ -173,10 +232,10 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-[var(--text-primary)] mb-4">
                 🚪 Portail d&apos;Intention
               </h2>
-              <p className="text-gray-400 max-w-2xl mx-auto">
+              <p className="text-[var(--text-secondary)] max-w-2xl mx-auto">
                 Choisis ta mission et ouvre la porte vers ta contribution au
                 Nexus. Chaque action compte dans notre quête commune.
               </p>
@@ -197,7 +256,7 @@ export default function Home() {
                   <div className="w-8 h-8 rounded-full bg-[var(--primary)] flex items-center justify-center text-black font-display font-bold text-sm">
                     1
                   </div>
-                  <h3 className="font-display text-xl font-semibold text-white">
+                  <h3 className="font-display text-xl font-semibold text-[var(--text-primary)]">
                     Sélectionne ta Mission 🎯
                   </h3>
                 </div>
@@ -217,10 +276,10 @@ export default function Home() {
                   className="border-t border-gray-800 pt-8"
                 >
                   <div className="flex items-center gap-3 mb-6">
-                    <div className="w-8 h-8 rounded-full bg-[var(--secondary)] flex items-center justify-center text-white font-display font-bold text-sm">
+                    <div className="w-8 h-8 rounded-full bg-[var(--secondary)] flex items-center justify-center text-[var(--text-primary)] font-display font-bold text-sm">
                       2
                     </div>
-                    <h3 className="font-display text-xl font-semibold text-white">
+                    <h3 className="font-display text-xl font-semibold text-[var(--text-primary)]">
                       Remplis les Coordonnées 📝
                     </h3>
                   </div>
@@ -236,30 +295,48 @@ export default function Home() {
         </section>
 
         {/* Footer */}
-        <footer className="py-12 px-4 border-t border-gray-800/50">
-          <div className="max-w-6xl mx-auto text-center">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[var(--primary)] to-[var(--secondary)] flex items-center justify-center">
-                <FiZap className="w-6 h-6 text-black" />
+        <footer className="py-16 px-4 relative overflow-hidden">
+          {/* Decorative gradient line */}
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--primary)] to-transparent" />
+          
+          <div className="max-w-6xl mx-auto text-center relative z-10">
+            {/* Team 404 Section */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="mb-8"
+            >
+              <div className="flex items-center justify-center gap-6 mb-4">
+                <div className="glitch-404">404</div>
+                <div className="h-12 w-px bg-gradient-to-b from-transparent via-[var(--primary)] to-transparent" />
+                <div className="text-left">
+                  <span className="font-display font-bold text-2xl text-[var(--text-primary)] block">
+                    Village Numérique Résistant
+                  </span>
+                  <span className="text-sm text-[var(--text-secondary)]">Équipe 404 • Nuit de l&apos;Info 2025</span>
+                </div>
               </div>
-              <span className="font-display font-bold text-xl text-white">
-                Le Nexus Connecté
-              </span>
-            </div>
-            <p className="text-gray-500 text-sm mb-4">
-              ⚡ Par les circuits de l&apos;éternité, que la puissance du code
-              te guide ! ⚡
+            </motion.div>
+            
+            <p className="text-[var(--text-secondary)] text-lg mb-8 max-w-2xl mx-auto">
+              🌱 Ensemble, construisons un numérique éducatif plus autonome, plus durable, plus éthique !
             </p>
-            <p className="text-gray-600 text-xs">
-              © {new Date().getFullYear()} Nexus Connecté • Nuit de l&apos;Info •
-              Tous droits réservés
+            
+            <div className="flex flex-wrap justify-center gap-4 mb-8">
+              <span className="px-4 py-2 rounded-full bg-[var(--primary)]/10 border border-[var(--primary)]/30 text-[var(--primary)] text-sm">🤝 Inclusif</span>
+              <span className="px-4 py-2 rounded-full bg-[var(--secondary)]/10 border border-[var(--secondary)]/30 text-[var(--secondary)] text-sm">♻️ Responsable</span>
+              <span className="px-4 py-2 rounded-full bg-[var(--gold)]/10 border border-[var(--gold)]/30 text-[var(--gold)] text-sm">🌱 Durable</span>
+            </div>
+            
+            <div className="neon-line max-w-xs mx-auto mb-6" />
+            
+            <p className="text-[var(--text-muted)] text-sm">
+              © {new Date().getFullYear()} <span className="text-[var(--primary)]">Équipe 404</span> • <span className="text-[var(--accent)]">NIRD</span> • Nuit de l&apos;Info 2025 • Défi SFEIR 🦎
             </p>
           </div>
         </footer>
       </main>
-
-      {/* AI Chatbot */}
-      <AxolotlChat />
     </div>
   );
 }

@@ -24,6 +24,7 @@ const exampleQuestions = [
 export default function AIAssistant({ onMissionSuggested }: AIAssistantProps) {
   const [userIntent, setUserIntent] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [formReady, setFormReady] = useState(false);
   const [suggestion, setSuggestion] = useState<{
     mission: MissionType;
     explanation: string;
@@ -52,30 +53,34 @@ export default function AIAssistant({ onMissionSuggested }: AIAssistantProps) {
           autoApplied: true,
         };
         setSuggestion(newSuggestion);
+        setFormReady(false);
         
         // Appliquer automatiquement la mission après un court délai
         setTimeout(() => {
           onMissionSuggested(newSuggestion.mission);
+          setFormReady(true);
           // Scroll vers le formulaire
           const formSection = document.getElementById("form-section");
           if (formSection) {
             formSection.scrollIntoView({ behavior: "smooth", block: "start" });
           }
-        }, 1500);
+        }, 800);
       }
     } catch (error) {
       console.error("Error analyzing intent:", error);
       // Fallback to local analysis
       const localSuggestion = analyzeLocally(userIntent);
       setSuggestion({ ...localSuggestion, autoApplied: true });
+      setFormReady(false);
       
       setTimeout(() => {
         onMissionSuggested(localSuggestion.mission);
+        setFormReady(true);
         const formSection = document.getElementById("form-section");
         if (formSection) {
           formSection.scrollIntoView({ behavior: "smooth", block: "start" });
         }
-      }, 1500);
+      }, 800);
     } finally {
       setIsAnalyzing(false);
     }
@@ -231,13 +236,13 @@ export default function AIAssistant({ onMissionSuggested }: AIAssistantProps) {
     >
       <div className="flex items-center gap-3 mb-4">
         <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[var(--secondary)] to-[var(--accent)] flex items-center justify-center">
-          <FiZap className="w-5 h-5 text-white" />
+          <FiZap className="w-5 h-5 text-[var(--text-primary)]" />
         </div>
         <div>
-          <h3 className="font-display font-semibold text-white">
+          <h3 className="font-display font-semibold text-[var(--text-primary)]">
             Assistant IA du Nexus 🤖
           </h3>
-          <p className="text-xs text-gray-400">
+          <p className="text-xs text-[var(--text-secondary)]">
             Décris ce que tu souhaites faire, je t&apos;orienterai automatiquement !
           </p>
         </div>
@@ -251,7 +256,7 @@ export default function AIAssistant({ onMissionSuggested }: AIAssistantProps) {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => handleExampleClick(example)}
-            className="text-xs px-3 py-1.5 rounded-full bg-gray-800/50 border border-gray-700 text-gray-400 hover:border-[var(--primary)] hover:text-[var(--primary)] transition-all"
+            className="text-xs px-3 py-1.5 rounded-full bg-gray-800/50 border border-gray-700 text-[var(--text-secondary)] hover:border-[var(--primary)] hover:text-[var(--primary)] transition-all"
           >
             <FiMessageCircle className="w-3 h-3 inline mr-1" />
             {example.length > 30 ? example.substring(0, 30) + "..." : example}
@@ -302,16 +307,26 @@ export default function AIAssistant({ onMissionSuggested }: AIAssistantProps) {
                 <FiCheck className="w-5 h-5 text-black" />
               </motion.div>
               <div className="flex-1">
-                <p className="text-white mb-2">{suggestion.explanation}</p>
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.5 }}
-                  className="flex items-center gap-2 text-sm text-[var(--primary)]"
-                >
-                  <FiLoader className="w-4 h-4 animate-spin" />
-                  <span>Chargement du formulaire...</span>
-                </motion.div>
+                <p className="text-[var(--text-primary)] mb-2">{suggestion.explanation}</p>
+                {!formReady ? (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="flex items-center gap-2 text-sm text-[var(--primary)]"
+                  >
+                    <FiLoader className="w-4 h-4 animate-spin" />
+                    <span>Chargement du formulaire...</span>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="flex items-center gap-2 text-sm text-green-400"
+                  >
+                    <FiCheck className="w-4 h-4" />
+                    <span>Formulaire prêt ! Remplis-le ci-dessous 👇</span>
+                  </motion.div>
+                )}
               </div>
             </div>
           </motion.div>

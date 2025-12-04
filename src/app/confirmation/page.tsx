@@ -35,43 +35,43 @@ const missionConfig: Record<
 > = {
   contact: {
     icon: <FiMail className="w-12 h-12" />,
-    title: "Message Transmis !",
+    title: "Message Transmis au Village ! 🏘️",
     message:
-      "Ton message a bien été acheminé vers nos serveurs centraux 📡. Nos Agents de Support 🕵️ te répondront sous peu.",
+      "Ton message a été acheminé vers notre Village Numérique Résistant 📡. Ensemble, construisons un numérique plus libre et durable !",
     color: "#00f5d4",
     colorClass: "text-[var(--primary)]",
-    impact: "Notre équipe de communication traite ta demande en priorité",
-    project: "améliorer notre réactivité et notre service client",
+    impact: "rejoindre la résistance contre la dépendance aux Big Tech",
+    project: "la démarche NIRD : Numérique Inclusif, Responsable et Durable",
   },
   don: {
     icon: <FiHeart className="w-12 h-12" />,
-    title: "Don de Ressources Reçu !",
+    title: "Don Reçu par le Village ! 💎",
     message:
-      "Un immense 'GG' ! 🏆 Ton Don de Ressources 💎 est une bénédiction pour notre cause 🙏.",
+      "Un immense 'GG' ! 🏆 Ton don soutient notre Village Numérique Résistant dans sa lutte pour un numérique libre et éthique 🙏.",
     color: "#fee440",
     colorClass: "text-[var(--gold)]",
-    impact: "financer des projets innovants et soutenir notre communauté",
-    project: "nos initiatives pour la Nuit de l'Info",
+    impact: "financer le reconditionnement de matériel et les solutions libres pour les écoles",
+    project: "la transition vers un numérique scolaire autonome et durable (NIRD)",
   },
   benevole: {
     icon: <FiUsers className="w-12 h-12" />,
-    title: "Bienvenue dans la Guilde !",
+    title: "Bienvenue dans le Village Résistant ! 🛡️",
     message:
-      "Tu fais maintenant partie de notre équipe d'élite ! 🛡️ Ensemble, nous accomplirons de grandes missions.",
+      "Tu rejoins notre communauté de résistants numériques ! Ensemble, aidons les établissements scolaires à se libérer des Big Tech.",
     color: "#7b2cbf",
     colorClass: "text-[var(--secondary)]",
-    impact: "renforcer nos rangs avec des talents exceptionnels",
-    project: "l'organisation de nos événements et missions terrain",
+    impact: "accompagner les écoles vers l'autonomie numérique et les logiciels libres",
+    project: "le déploiement de Linux et des solutions open-source dans les établissements",
   },
   info: {
     icon: <FiInfo className="w-12 h-12" />,
-    title: "Demande Enregistrée !",
+    title: "Requête Transmise au Village ! 📚",
     message:
-      "Ta requête a été transmise à nos analystes. Tu recevras bientôt les informations demandées dans ta boîte de réception.",
+      "Ta demande d'information sur notre démarche NIRD a été enregistrée. Découvre comment résister à l'obsolescence programmée !",
     color: "#f15bb5",
     colorClass: "text-[var(--accent)]",
-    impact: "partager notre vision et nos projets avec le monde",
-    project: "la transparence et la communication avec notre communauté",
+    impact: "sensibiliser à la sobriété numérique et au réemploi du matériel",
+    project: "l'éducation au numérique responsable et à la résistance face aux Big Tech",
   },
 };
 
@@ -158,7 +158,7 @@ function ConfirmationContent() {
                   className="absolute -bottom-1 -right-1 w-10 h-10 rounded-full bg-green-500 flex items-center justify-center"
                   style={{ boxShadow: "0 0 20px rgba(34, 197, 94, 0.5)" }}
                 >
-                  <FiCheckCircle className="w-6 h-6 text-white" />
+                  <FiCheckCircle className="w-6 h-6 text-[var(--text-primary)]" />
                 </motion.div>
               </motion.div>
             </motion.div>
@@ -176,10 +176,10 @@ function ConfirmationContent() {
               variants={itemVariants}
               className="text-center mb-8"
             >
-              <p className="text-2xl text-white mb-2">
+              <p className="text-2xl text-[var(--text-primary)] mb-2">
                 Salutations, <span className={config.colorClass}>{nom}</span> ! 👋
               </p>
-              <p className="text-gray-400 text-lg">{config.message}</p>
+              <p className="text-[var(--text-secondary)] text-lg">{config.message}</p>
               {mission === "don" && montant && (
                 <motion.div
                   initial={{ scale: 0.8, opacity: 0 }}
@@ -190,21 +190,34 @@ function ConfirmationContent() {
                   <p className="text-[var(--gold)] font-display text-2xl font-bold">
                     {montant}€
                   </p>
-                  <p className="text-gray-400 text-sm">Don enregistré</p>
+                  <p className="text-[var(--text-secondary)] text-sm">Don enregistré</p>
                 </motion.div>
               )}
             </motion.div>
 
-            {/* Year Section */}
+            {/* Year Section - Thème NIRD 2025 */}
             <motion.div
               variants={itemVariants}
               className="bg-[rgba(0,245,212,0.05)] rounded-xl p-6 mb-8 border border-[var(--primary)]/20"
             >
               <div className="flex items-center gap-3 mb-4">
                 <FiCalendar className="w-6 h-6 text-[var(--primary)]" />
-                <h2 className="font-display text-xl font-semibold text-white">
-                  Année {currentYear}
+                <h2 className="font-display text-xl font-semibold text-[var(--text-primary)]">
+                  🏘️ Village Numérique Résistant • {currentYear}
                 </h2>
+              </div>
+              
+              {/* Piliers NIRD */}
+              <div className="flex flex-wrap gap-2 mb-4">
+                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[var(--primary)]/20 text-[var(--primary)] border border-[var(--primary)]/30">
+                  🤝 Inclusif
+                </span>
+                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[var(--secondary)]/20 text-[var(--secondary)] border border-[var(--secondary)]/30">
+                  ♻️ Responsable
+                </span>
+                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[var(--gold)]/20 text-[var(--gold)] border border-[var(--gold)]/30">
+                  🌱 Durable
+                </span>
               </div>
 
               <div className="space-y-4">
@@ -216,10 +229,10 @@ function ConfirmationContent() {
                     <FiTarget className="w-5 h-5 text-[var(--primary)]" />
                   </div>
                   <div>
-                    <h3 className="text-white font-semibold mb-1">
+                    <h3 className="text-[var(--text-primary)] font-semibold mb-1">
                       Ton soutien en {currentYear} est crucial !
                     </h3>
-                    <p className="text-gray-400 text-sm">
+                    <p className="text-[var(--text-secondary)] text-sm">
                       Grâce à toi, nous pouvons avancer sur {config.project} cette
                       année {currentYear}.
                     </p>
@@ -234,10 +247,10 @@ function ConfirmationContent() {
                     <FiTrendingUp className="w-5 h-5 text-[var(--secondary)]" />
                   </div>
                   <div>
-                    <h3 className="text-white font-semibold mb-1">
+                    <h3 className="text-[var(--text-primary)] font-semibold mb-1">
                       Impact de ta contribution
                     </h3>
-                    <p className="text-gray-400 text-sm">
+                    <p className="text-[var(--text-secondary)] text-sm">
                       Ton action permettra de {config.impact}.
                     </p>
                   </div>
@@ -250,7 +263,7 @@ function ConfirmationContent() {
               variants={itemVariants}
               className="text-center space-y-4"
             >
-              <p className="text-gray-400">
+              <p className="text-[var(--text-secondary)]">
                 🚀 Reste connecté pour suivre nos exploits tout au long de
                 l&apos;année {currentYear} !
               </p>
@@ -273,12 +286,11 @@ function ConfirmationContent() {
               variants={itemVariants}
               className="mt-8 pt-6 border-t border-gray-800 text-center"
             >
-              <p className="text-gray-500 text-sm">
-                ⚡ Par les circuits de l&apos;éternité, que la puissance du code
-                t&apos;accompagne ! ⚡
+              <p className="text-[var(--text-muted)] text-sm">
+                🏘️ Ensemble, construisons un numérique éducatif plus autonome, plus durable, plus éthique !
               </p>
               <p className="text-gray-600 text-xs mt-2">
-                Nexus Connecté • Nuit de l&apos;Info {currentYear}
+                Village Numérique Résistant • NIRD • Nuit de l&apos;Info {currentYear}
               </p>
             </motion.div>
           </motion.div>

@@ -1,31 +1,32 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+// Mistral AI 🇫🇷 - IA française cohérente avec le thème NIRD
+const MISTRAL_API_KEY = process.env.MISTRAL_API_KEY;
 
-const SYSTEM_PROMPT = `Tu es un assistant intelligent qui analyse l'intention d'un utilisateur pour le diriger vers la bonne mission sur un site d'association.
+const SYSTEM_PROMPT = `Tu es un assistant intelligent du Village Numérique Résistant (démarche NIRD) qui analyse l'intention d'un utilisateur.
+
+Contexte : NIRD = Numérique Inclusif, Responsable et Durable. Nous aidons les établissements scolaires à résister aux Big Tech avec Linux et les logiciels libres.
 
 Les 4 missions disponibles sont :
 1. "contact" : Pour envoyer un message, poser une question générale, établir un premier contact, signaler un problème, proposer un partenariat
-2. "don" : Pour faire un don financier, contribuer à la cause, soutenir l'association, devenir mécène, sponsoriser
-3. "benevole" : Pour devenir bénévole, rejoindre l'équipe, participer aux événements, aider, s'impliquer, chercher un stage ou une opportunité
-4. "info" : Pour obtenir des informations sur l'association, les projets, les événements, comprendre le fonctionnement
+2. "don" : Pour faire un don financier, soutenir le reconditionnement de matériel, financer les solutions libres
+3. "benevole" : Pour devenir bénévole, rejoindre la résistance numérique, participer aux événements, aider à déployer Linux
+4. "info" : Pour obtenir des informations sur NIRD, Linux, les logiciels libres, le reconditionnement, les projets
 
-IMPORTANT: Tu dois analyser TOUS types de demandes, même inhabituelles, et les mapper intelligemment vers une des 4 missions.
+IMPORTANT: Tu dois analyser TOUS types de demandes et les mapper intelligemment vers une des 4 missions.
 
 Exemples de mapping intelligent :
-- "Je veux créer un jeu vidéo avec vous" → benevole (participation à un projet)
-- "Mon entreprise veut vous aider" → contact (partenariat)
-- "C'est pour un exposé scolaire" → info (recherche d'informations)
+- "Je veux aider les écoles à installer Linux" → benevole
+- "Mon entreprise veut sponsoriser" → contact (partenariat)
+- "C'est quoi NIRD ?" → info
 - "Je suis développeur et j'ai du temps libre" → benevole
-- "Où va l'argent des dons ?" → info
-- "Je veux organiser un événement ensemble" → contact
-- "Comment fonctionne votre association ?" → info
-- "Je peux donner du matériel" → don (contribution matérielle = don en nature)
+- "Je veux donner du matériel informatique" → don
+- "Comment fonctionne le reconditionnement ?" → info
 
 Réponds UNIQUEMENT avec un JSON au format :
 {
   "mission": "contact" | "don" | "benevole" | "info",
-  "explanation": "Explication engageante et personnalisée en français (2-3 phrases max) avec des emojis appropriés. Mentionne spécifiquement ce que l'utilisateur a demandé."
+  "explanation": "Explication engageante en français (2-3 phrases max) avec des emojis. Mentionne le Village Résistant ou NIRD si pertinent."
 }`;
 
 export async function POST(request: NextRequest) {
@@ -39,19 +40,20 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!OPENAI_API_KEY) {
+    if (!MISTRAL_API_KEY) {
       // Fallback without API key
       return NextResponse.json(analyzeLocally(intent));
     }
 
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    // Appel à l'API Mistral AI 🇫🇷
+    const response = await fetch("https://api.mistral.ai/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${OPENAI_API_KEY}`,
+        Authorization: `Bearer ${MISTRAL_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "gpt-3.5-turbo",
+        model: "mistral-small-latest",
         messages: [
           { role: "system", content: SYSTEM_PROMPT },
           { role: "user", content: `Analyse cette demande et oriente l'utilisateur: "${intent}"` },
@@ -62,7 +64,7 @@ export async function POST(request: NextRequest) {
     });
 
     if (!response.ok) {
-      console.error("OpenAI API error");
+      console.error("Mistral API error");
       return NextResponse.json(analyzeLocally(intent));
     }
 
@@ -94,6 +96,23 @@ export async function POST(request: NextRequest) {
 function analyzeLocally(text: string): { mission: string; explanation: string } {
   const lowerText = text.toLowerCase();
 
+  // Détection NIRD spécifique
+  if (
+    lowerText.includes("nird") ||
+    lowerText.includes("linux") ||
+    lowerText.includes("logiciel libre") ||
+    lowerText.includes("open source") ||
+    lowerText.includes("reconditionnement") ||
+    lowerText.includes("big tech") ||
+    lowerText.includes("résistance") ||
+    lowerText.includes("village")
+  ) {
+    return {
+      mission: "info",
+      explanation: `🏘️ Tu t'intéresses à notre démarche NIRD ! La mission "Demander des Infos" te permettra d'en apprendre plus sur la résistance numérique et les logiciels libres.`,
+    };
+  }
+
   // Détection des dons et contributions
   if (
     lowerText.includes("don") || 
@@ -106,11 +125,12 @@ function analyzeLocally(text: string): { mission: string; explanation: string } 
     lowerText.includes("mécène") ||
     lowerText.includes("sponsor") ||
     lowerText.includes("soutien financier") ||
-    lowerText.includes("donation")
+    lowerText.includes("donation") ||
+    lowerText.includes("matériel")
   ) {
     return {
       mission: "don",
-      explanation: `🎯 Je comprends que tu souhaites soutenir financièrement notre cause ! La mission "Offrir un Don" 💰 est parfaite pour concrétiser ta générosité.`,
+      explanation: `💎 Tu souhaites soutenir le Village Résistant ! Ton don aidera à financer le reconditionnement de matériel et le déploiement de Linux dans les écoles 🐧`,
     };
   }
 
@@ -131,11 +151,13 @@ function analyzeLocally(text: string): { mission: string; explanation: string } 
     lowerText.includes("stage") ||
     lowerText.includes("développeur") ||
     lowerText.includes("designer") ||
-    lowerText.includes("compétence")
+    lowerText.includes("compétence") ||
+    lowerText.includes("école") ||
+    lowerText.includes("installer")
   ) {
     return {
       mission: "benevole",
-      explanation: `🛡️ Excellent ! Tu veux mettre tes talents au service du Nexus ! Rejoins notre Guilde des Bénévoles pour participer à nos missions épiques.`,
+      explanation: `🛡️ Excellent ! Tu veux rejoindre la résistance numérique ! La Guilde des Bénévoles t'attend pour aider les écoles à adopter Linux et les logiciels libres 🐧`,
     };
   }
 
@@ -159,7 +181,7 @@ function analyzeLocally(text: string): { mission: string; explanation: string } 
   ) {
     return {
       mission: "info",
-      explanation: `❓ Tu cherches des informations ! La mission "Demander des Infos" te permettra d'obtenir toutes les réponses à tes questions sur le Nexus.`,
+      explanation: `❓ Tu cherches des informations sur le Village Résistant ! Découvre comment les écoles peuvent s'affranchir des Big Tech 🏘️`,
     };
   }
 
@@ -180,7 +202,7 @@ function analyzeLocally(text: string): { mission: string; explanation: string } 
   ) {
     return {
       mission: "contact",
-      explanation: `📞 Je vois que tu souhaites établir le contact avec nous ! La mission "Établir le Contact" te mettra en relation directe avec nos Agents de Support.`,
+      explanation: `📞 Tu souhaites établir le contact avec le Village Résistant ! Notre équipe NIRD te répondra pour discuter de ta demande 🏘️`,
     };
   }
 
@@ -193,7 +215,7 @@ function analyzeLocally(text: string): { mission: string; explanation: string } 
   ) {
     return {
       mission: "benevole",
-      explanation: `💪 Super ! Tu as des compétences et du temps à offrir. Rejoins notre Guilde des Bénévoles pour les mettre à profit !`,
+      explanation: `💪 Super ! Tu as des compétences à offrir au Village Résistant. Rejoins notre Guilde pour aider les écoles à adopter le numérique libre !`,
     };
   }
 
@@ -206,7 +228,7 @@ function analyzeLocally(text: string): { mission: string; explanation: string } 
   ) {
     return {
       mission: "contact",
-      explanation: `👋 Salutations, voyageur ! Établis le contact avec nous pour démarrer une conversation avec notre équipe.`,
+      explanation: `👋 Bienvenue au Village Numérique Résistant ! Établis le contact pour rejoindre notre communauté NIRD 🏘️`,
     };
   }
 
@@ -214,12 +236,12 @@ function analyzeLocally(text: string): { mission: string; explanation: string } 
   if (text.length > 100) {
     return {
       mission: "contact",
-      explanation: `📡 J'ai analysé ta demande détaillée ! La mission "Établir le Contact" te permettra de nous expliquer en détail ton projet ou besoin.`,
+      explanation: `📡 J'ai analysé ta demande détaillée ! Contacte le Village Résistant pour nous expliquer ton projet ou besoin 🏘️`,
     };
   }
 
   return {
     mission: "info",
-    explanation: `🔍 Je vais t'orienter vers la mission "Demander des Infos" pour que tu puisses en apprendre davantage sur le Nexus et nos activités !`,
+    explanation: `🔍 Découvre la démarche NIRD et comment le Village Résistant aide les écoles à adopter un numérique libre et durable ! 🌱`,
   };
 }
