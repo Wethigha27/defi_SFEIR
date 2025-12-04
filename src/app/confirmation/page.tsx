@@ -31,52 +31,47 @@ const missionConfig: Record<
     colorClass: string;
     impact: string;
     project: string;
-    emoji: string;
   }
 > = {
   contact: {
     icon: <FiMail className="w-12 h-12" />,
-    title: "Message Acheminé !",
+    title: "Message Transmis !",
     message:
-      "Ton message a bien été acheminé vers nos serveurs centraux 📡. Nos Agents de Support 🕵️ te répondront sous peu via les canaux cryptés du Nexus.",
+      "Ton message a bien été acheminé vers nos serveurs centraux 📡. Nos Agents de Support 🕵️ te répondront sous peu.",
     color: "#00f5d4",
     colorClass: "text-[var(--primary)]",
-    impact: "améliorer notre réactivité et renforcer le lien avec notre communauté",
-    project: "le développement de notre plateforme de communication",
-    emoji: "📞",
+    impact: "Notre équipe de communication traite ta demande en priorité",
+    project: "améliorer notre réactivité et notre service client",
   },
   don: {
     icon: <FiHeart className="w-12 h-12" />,
     title: "Don de Ressources Reçu !",
     message:
-      "Un immense 'GG' ! 🏆 Ton Don de Ressources 💎 est une bénédiction pour notre cause 🙏. Il permettra de financer nos projets innovants et soutenir les Chevaliers du Code !",
+      "Un immense 'GG' ! 🏆 Ton Don de Ressources 💎 est une bénédiction pour notre cause 🙏.",
     color: "#fee440",
     colorClass: "text-[var(--gold)]",
-    impact: "financer l'hébergement de nos serveurs, les événements communautaires et le matériel pour nos bénévoles",
-    project: "la Nuit de l'Info et nos initiatives open-source",
-    emoji: "💰",
+    impact: "financer des projets innovants et soutenir notre communauté",
+    project: "nos initiatives pour la Nuit de l'Info",
   },
   benevole: {
     icon: <FiUsers className="w-12 h-12" />,
     title: "Bienvenue dans la Guilde !",
     message:
-      "Tu fais maintenant partie de notre équipe d'élite ! 🛡️ Ensemble, nous accomplirons de grandes missions et défendrons le Nexus contre les Bugs Ancestraux !",
+      "Tu fais maintenant partie de notre équipe d'élite ! 🛡️ Ensemble, nous accomplirons de grandes missions.",
     color: "#7b2cbf",
     colorClass: "text-[var(--secondary)]",
-    impact: "renforcer nos rangs avec des talents exceptionnels comme toi",
-    project: "l'organisation de la Nuit de l'Info et nos ateliers de formation",
-    emoji: "🛡️",
+    impact: "renforcer nos rangs avec des talents exceptionnels",
+    project: "l'organisation de nos événements et missions terrain",
   },
   info: {
     icon: <FiInfo className="w-12 h-12" />,
-    title: "Requête Transmise !",
+    title: "Demande Enregistrée !",
     message:
-      "Ta requête a été transmise à nos analystes du Nexus. Tu recevras bientôt les informations demandées dans ta boîte de réception. La connaissance est le pouvoir ! ⚡",
+      "Ta requête a été transmise à nos analystes. Tu recevras bientôt les informations demandées dans ta boîte de réception.",
     color: "#f15bb5",
     colorClass: "text-[var(--accent)]",
-    impact: "partager notre vision et éclairer les nouveaux voyageurs du Nexus",
-    project: "la documentation et les ressources éducatives de notre communauté",
-    emoji: "❓",
+    impact: "partager notre vision et nos projets avec le monde",
+    project: "la transparence et la communication avec notre communauté",
   },
 };
 
@@ -112,7 +107,7 @@ function ConfirmationContent() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: { duration: 0.6, ease: "easeOut" as const },
     },
   };
 

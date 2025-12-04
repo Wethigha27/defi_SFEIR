@@ -77,7 +77,7 @@ export default function Confetti() {
           transition={{
             duration: piece.duration,
             delay: piece.delay,
-            ease: "easeIn",
+            ease: "easeIn" as const,
           }}
         />
       ))}

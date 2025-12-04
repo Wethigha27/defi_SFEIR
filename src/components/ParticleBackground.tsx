@@ -78,7 +78,7 @@ export default function ParticleBackground() {
             duration: particle.duration,
             delay: particle.delay,
             repeat: Infinity,
-            ease: "easeInOut",
+            ease: "easeInOut" as const,
           }}
         />
       ))}
